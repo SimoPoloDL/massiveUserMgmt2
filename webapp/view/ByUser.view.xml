@@ -5,7 +5,7 @@
   xmlns:f="sap.ui.layout.form"
   xmlns:mvc="sap.ui.core.mvc" xmlns:t="sap.ui.table">
   <HBox width="100%" height="100%" alignItems="Center" justifyContent="SpaceBetween">
-      <t:Table class="sapUiSmallMargin" id="tableByUserUsers" rows="{modelByUserUsers>/}" selectionMode="Single" selectionBehavior="RowOnly" visibleRowCount="10" rowHeight="50px">
+      <t:Table rowSelectionChange="onSelectUser" class="sapUiSmallMargin" id="tableByUserUsers" rows="{modelByUserUsers>/}" selectionMode="Single" selectionBehavior="RowOnly" visibleRowCount="10" rowHeight="50px">
         <t:toolbar>
           <Toolbar>
             <Input width="20vw" id="inputByUserUsers" placeholder="{i18n>massiveusermgmt.users.placeholder}" submit="filterUsers" liveChange="filterUsers"/>

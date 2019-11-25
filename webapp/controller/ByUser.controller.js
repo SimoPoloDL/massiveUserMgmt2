@@ -33,9 +33,9 @@ sap.ui.define([
         },
         onAfterRendering: function () {
             this.onClearSelections();
-            this.getWorkCenters();
-            this.getUsers();
-            this.getUserGroups();
+            //this.getWorkCenters();
+            //this.getUsers();
+            //this.getUserGroups();
         },
         getWorkCenters: function (inputUserId) {
 
@@ -114,28 +114,28 @@ sap.ui.define([
             that.selectedWorkCenters.length = 0;
 
             for (var c in that.modelByUserWorkCenters.getProperty("/")) {
-                if (that.modelByUserWorkCenters.getProperty("/")[c].SELECTED) that.selectedWorkCenters.push(that.modelByUserWorkCenters.getProperty("/")[c].HANDLE);
+                if (that.modelByUserWorkCenters.getProperty("/")[c].SELECTED) that.selectedWorkCenters.push(that.modelByUserWorkCenters.getProperty("/")[c].WORK_CENTER_BO);
             }
 
             that.selectedUsers.length = 0;
 
-            for (var u in that.modelByUserUsers.getProperty("/")) {
+            /*for (var u in that.modelByUserUsers.getProperty("/")) {
                 if (that.modelByUserUsers.getProperty("/")[u].SELECTED) that.selectedUsers.push(that.modelByUserUsers.getProperty("/")[u].HANDLE);
-            }
+            }*/
 
             that.selectedUserGroups.length = 0;
 
             for (var g in that.modelByUserUserGroups.getProperty("/")) {
-                if (that.modelByUserUserGroups.getProperty("/")[g].SELECTED) that.selectedUserGroups.push(that.modelByUserUserGroups.getProperty("/")[g].HANDLE);
+                if (that.modelByUserUserGroups.getProperty("/")[g].SELECTED) that.selectedUserGroups.push(that.modelByUserUserGroups.getProperty("/")[g].USER_GROUP_BO);
             }
 
             if (!that.selectedWorkCenters.length) {
-                MessageBox.warning(that.getI18nModel().getResourceBundle().getText("massiveusermgmt.warning.noCertSelected"), {
-                    title: that.getI18nModel().getResourceBundle().getText("massiveusermgmt.warning.warning")
+                MessageBox.warning(this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.noCertSelected"), {
+                    title: this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.warning")
                 });
-            } else if (!that.selectedUsers.length && !that.selectedUserGroups.length) {
-                MessageBox.warning(that.getI18nModel().getResourceBundle().getText("massiveusermgmt.warning.noDestSelected"), {
-                    title: that.getI18nModel().getResourceBundle().getText("massiveusermgmt.warning.warning")
+            } else if (/*!that.selectedUsers.length && */ !that.selectedUserGroups.length) {
+                MessageBox.warning(this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.noDestSelected"), {
+                    title: this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.warning")
                 });
             } else {
                 that.createWorkCenter();
@@ -145,10 +145,10 @@ sap.ui.define([
             var that = this;
 
             var workCentersXML = '<workCenters><WorkCenterBO>' + that.selectedWorkCenters.map(function(c){return c;}).join("</WorkCenterBO><WorkCenterBO>") + '</WorkCenterBO></workCenters>';
-            var usersXML = '<users><UserBO>' + that.selectedUsers.map(function(c){return c;}).join("</UserBO><UserBO>") + '</UserBO></users>';
+            //var usersXML = '<users><UserBO>' + that.selectedUsers.map(function(c){return c;}).join("</UserBO><UserBO>") + '</UserBO></users>';
             var userGroupsXML = '<userGroups><UserGroupBO>' + that.selectedUserGroups.map(function(c){return c;}).join("</UserGroupBO><UserGroupBO>") + '</UserGroupBO></userGroups>';
 
-            var transaction = "8800/TRANSACTION/MASSIVE_CERTIFICATION/createWorkCenter";
+            var transaction = "ES/TRANSACTIONS/MASSIVEUSERMANAGEMENT/ASSIGN_WC_AND_USERGROUP";
 
             function success(data) {
                 that.onClearSelections();
@@ -162,10 +162,9 @@ sap.ui.define([
 
             var callData = {
                 MOCK: "createWorkCenterMessage",
-                workCentersXML: workCentersXML,
-                usersXML: usersXML,
-                userGroupsXML: userGroupsXML,
-                removeExisting: false
+                USER_GROUPS_XML: workCentersXML,
+                USERID: usersXML,
+                WORK_CENTERS_XML: userGroupsXML
             };
 
             CommonCallManager.getRows(transaction, callData, success, failure);
@@ -219,6 +218,9 @@ sap.ui.define([
 
             this.tableByUserUserGroups.getBinding("rows").filter(oFilterUserGroups);
 
+        },
+        onSelectUser: function(oEvent) {
+          this.getWorkCenters(this.modelByUserUsers.getProperty(oEvent.getParameter("rowContext").sPath).USERNAME);
         }
     });
 
