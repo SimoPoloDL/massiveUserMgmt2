@@ -1,0 +1,80 @@
+<mvc:View controllerName="massiveusermgmt.controller.ByUser"
+  xmlns="sap.m"
+  xmlns:comp="massiveusermgmt.component"
+  xmlns:core="sap.ui.core"
+  xmlns:f="sap.ui.layout.form"
+  xmlns:mvc="sap.ui.core.mvc" xmlns:t="sap.ui.table">
+  <HBox width="100%" height="100%" alignItems="Center" justifyContent="SpaceBetween">
+      <t:Table class="sapUiSmallMargin" id="tableByUserUsers" rows="{modelByUserUsers>/}" selectionMode="Single" selectionBehavior="RowOnly" visibleRowCount="10" rowHeight="50px">
+        <t:toolbar>
+          <Toolbar>
+            <Input width="20vw" id="inputByUserUsers" placeholder="{i18n>massiveusermgmt.users.placeholder}" submit="filterUsers" liveChange="filterUsers"/>
+            <ToolbarSpacer/>
+            <Button width="5vw" icon="sap-icon://response"  text="Reset" type="Reject" press="resetUsers"/>
+          </Toolbar>
+          </t:toolbar>
+        <t:columns>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet"  width="40%">
+            <Text text="{i18n>massiveusermgmt.column.userId}"/>
+            <t:template>
+              <ObjectIdentifier title="{modelByUserUsers>USERNAME}" text="{modelByUserUsers>BADGE}" class="mezzoRemDiPaddingASinistra" />
+            </t:template>
+          </t:Column>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet"  width="55%">
+            <Text text="{i18n>massiveusermgmt.column.fullName}"/>
+            <t:template>
+              <Text text="{modelByUserUsers>LASTNAME}, {modelByUserUsers>FIRSTNAME}" class="mezzoRemDiPaddingASinistra"/>
+            </t:template>
+          </t:Column>
+        </t:columns>
+      </t:Table>
+      <t:Table class="sapUiSmallMargin" id="tableByUserWorkCenters" rows="{modelByUserWorkCenters>/}" selectionMode="MultiToggle" selectionBehavior="RowOnly" visibleRowCount="10" rowHeight="50px">
+        <t:toolbar>
+          <Toolbar>
+          <Input width="15vw"  id="inputByUserWorkCenters" placeholder="{i18n>massiveusermgmt.workCenter.placeholder}" submit="filterWorkCenters" liveChange="filterWorkCenters"/>
+          <ToolbarSpacer/>
+          <Button width="5vw" icon="sap-icon://response" text="Reset" type="Reject" press="resetWorkCenters"/>
+        </Toolbar>
+        </t:toolbar>
+        <t:columns>
+          <t:Column width="50px" demandPopin="true" minScreenWidth="t:Tablet" >
+            <t:template>
+              <CheckBox selected="{modelByUserWorkCenters>SELECTED}"/>
+            </t:template>
+          </t:Column>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" >
+            <Text text="{i18n>massiveusermgmt.column.name}"/>
+            <t:template>
+              <ObjectIdentifier title="{modelByUserWorkCenters>WORK_CENTER}" text="{modelByUserWorkCenters>DESCRIPTION}" class="mezzoRemDiPaddingASinistra"/>
+            </t:template>
+          </t:Column>
+        </t:columns>
+      </t:Table>
+      <t:Table class="sapUiSmallMargin" id="tableByUserUserGroups" rows="{modelByUserUserGroups>/}" selectionMode="None" visibleRowCount="10" rowHeight="50px">
+        <t:toolbar>
+          <Toolbar>
+            <Input width="15vw" id="inputByUserUserGroups" placeholder="{i18n>massiveusermgmt.userGroups.placeholder}" submit="filterUserGroups" liveChange="filterUserGroups"/>
+            <ToolbarSpacer/>
+            <Button width="5vw" icon="sap-icon://response" text="Reset" type="Reject" press="resetUserGroups"/>
+          </Toolbar>
+          </t:toolbar>
+        <t:columns>
+          <t:Column width="50px" demandPopin="true" minScreenWidth="t:Tablet" >
+            <t:template>
+              <CheckBox selected="{modelByUserUserGroups>SELECTED}"/>
+            </t:template>
+          </t:Column>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" >
+            <Text text="{i18n>massiveusermgmt.column.name}"/>
+            <t:template>
+              <ObjectIdentifier title="{modelByUserUserGroups>USER_GROUP}" text="{modelByUserUserGroups>DESCRIPTION}" class="mezzoRemDiPaddingASinistra"/>
+            </t:template>
+          </t:Column>
+        </t:columns>
+      </t:Table>
+      <VBox justifyContent="Center" class="sapUiTinyMarginBegin">
+        <Button class="sapUiSmallMargin" icon="sap-icon://response" press="onClearSelections" text="{i18n>massiveusermgmt.button.avoid}" type="Reject" width="10rem"/>
+        <Button class="sapUiSmallMargin" icon="sap-icon://save" press="onSave" text="{i18n>massiveusermgmt.button.save}" type="Accept" width="10rem"/>
+      </VBox>
+  </HBox>
+</mvc:View>

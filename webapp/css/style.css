@@ -1,0 +1,202 @@
+.myPage * {
+  -o-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.myPage .tmpBorder {
+  border-width: 1px;
+}
+
+.myPage .toolBar {
+  border-bottom-width: thin;
+  border-bottom-style: inset;
+  border-bottom-color: lightgray;
+  border-top-width: thin;
+  border-top-style: inset;
+  border-top-color: lightgray;
+}
+
+.myPage .DLLogo {
+  display: inline-block;
+  margin-right: 38px;
+  margin-left: 38px;
+  padding: 0.1rem 0.1rem 0.1rem 0.1rem;
+  overflow: hidden;
+  position: relative;
+  border: none;
+}
+
+.myPage .sapMLabel {
+  font-size: 1.1rem;
+}
+
+.myPage .sapMLabel .whiteText {
+  color: white;
+}
+
+.myPage .sapMLabel .blackText {
+  color: black;
+}
+/*
+.myPage .sapMText {
+  font-size: 1.4rem;
+}
+*/
+.myPage .sapMText .blackText {
+  color: black;
+}
+
+.myPage .sapMListTbl .sapMText {
+  color: black;
+}
+
+.myPage .sapMTitleStyleAuto {
+  font-size: 2rem;
+}
+
+.myDialog .sapMLabel {
+  font-size: 1.6rem;
+}
+
+.myDialog .sapMLabel.whiteText {
+  color: white;
+}
+
+.myDialog .sapMLabel.blackText {
+  color: black;
+}
+
+.myDialog .sapMText {
+  font-size: 2.0rem;
+  color: black;
+}
+
+.myDialog .sapMFooter-CTX .sapMBtn .sapMBtnContent {
+  font-size: 2.0rem;
+}
+
+.myMessageDialog {
+  font-size: 1.7rem
+}
+
+@media screen and (max-width: 1450px) {
+  .myPage .podHeader .sapMLabel {
+    font-size: 1.2rem;
+  }
+
+  .myPage .podHeader .sapMLabel .whiteText {
+    color: white;
+  }
+
+  .myPage .sapUiMediumMarginEnd {
+    margin-right: 1rem !important;
+  }
+}
+
+/*
+.myPage .sapUiTableColHdrScr {
+    background-color: #252424;
+}
+
+.myPage .sapMBtnInner.sapMBtnActive {
+    background-color: #DDBD4F;
+}
+
+.myPage .sapUiTableCtrl tr.sapUiTableRowSel:not(.sapUiTableGroupHeader) > td {
+    background-color: #86A0DF;
+}
+
+.myPage .sapUiTable .sapUiTableRowHdr.sapUiTableRowSel {
+    background-color: #86A0DF;
+    border-right: 1px solid #dddddd;
+}
+
+.myPage .sapUiTable .sapUiTableRowHvr {
+    background-color: #E6D07A
+}
+
+.myPage .sapUiTable .sapUiTableCtrl .sapUiTableRowHvr > td {
+    background-color: #E6D07A
+}
+
+.myPage .sapUiTableCol:hover, .sapUiTableColRowHdr:hover {
+    background-color: #E6D07A
+}
+
+.myPage .sapUiTableCol:hover .sapMLabel, .sapUiTableColRowHdr:hover .sapMLabel {
+    color: black;
+}
+
+.sapMSelectListItemBaseSelected {
+    background: #E6D07A;
+}
+
+.sapMSelectListItemBaseHoverable:hover {
+    background: lightgray;
+}
+
+.myPage .sapMToggleBtnPressed, .sapMIBar-CTX .sapMToggleBtnPressed, .sapMTB-Transparent-CTX .sapMBtnInner.sapMToggleBtnPressed {
+    background-color: #DDBD4F;
+}
+
+.myPage .sapMBtn:hover .sapMBtnHoverable.sapMToggleBtnPressed, .sapMBtn .sapMBtnHoverable.sapMToggleBtnPressed:hover, .sapMTB-Transparent-CTX .sapMBtnHoverable.sapMToggleBtnPressed:hover {
+    background-color: #DDB321;
+}
+
+.myPage .sapUiTableColSF::after {
+    color: #E6D07A;
+}
+
+.myPage .sapUiTableCol:hover .sapUiTableColSF::after {
+    color: black;
+}
+*/
+.myPage .titleMargin {
+  margin-left: 7rem !important;
+}
+
+.sapMLabel.blackText {
+  color: black;
+  font-size: 0.8rem;
+}
+
+.sapMText.blackText {
+  color: black;
+  font-size: 0.8rem;
+}
+
+.sapMLIB {
+  height: 2rem;
+}
+
+.scrollabley {
+  overflow-y: auto;
+}
+
+.noscrollabley {
+  overflow-y: hidden;
+}
+/*
+.sapMITB {
+  height: -webkit-fill-available;
+}
+
+.sapMITBContainerContent {
+  height: -webkit-fill-available;
+}
+
+.sapMITBContent {
+  height: -webkit-fill-available;
+}
+
+*/
+.sapUiTableContentRow .sapUiTableCell .sapUiTableCellInner:first-child {
+  padding: 0rem !important;
+}
+
+.mezzoRemDiPaddingASinistra {
+  padding-left: 0.5rem;
+}

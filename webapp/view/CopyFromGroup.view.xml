@@ -1,0 +1,100 @@
+<mvc:View controllerName="massiveusermgmt.controller.CopyFromGroup" xmlns="sap.m" xmlns:comp="massiveusermgmt.component" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc" xmlns:t="sap.ui.table">
+  <HBox>
+    <VBox width="25%">
+      <HBox justifyContent="Center">
+        <HBox justifyContent="End">
+          <Input width="17.5rem" id="inputCopyFromGroupUserGroupsSrc" placeholder="{i18n>massiveusermgmt.userGroups.placeholderSrc}" submit="filterUserGroupsSrc" liveChange="filterUserGroupsSrc"/>
+        </HBox>
+      </HBox>
+      <t:Table id="tableCopyFromGroupUserGroupsSrc" rows="{modelCopyFromGroupUserGroupsSrc>/}" selectionMode="Single" selectionBehavior="RowOnly" rowSelectionChange="getGroupWorkCenter" visibleRowCountMode="Interactive" rowHeight="40">
+        <t:columns>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="40%">
+            <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.name}"/>
+            <t:template>
+              <Text text="{modelCopyFromGroupUserGroupsSrc>USER_GROUP}" class="blackText"/>
+            </t:template>
+          </t:Column>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="60%">
+            <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.description}"/>
+            <t:template>
+              <Text text="{modelCopyFromGroupUserGroupsSrc>DESCRIPTION}" class="blackText"/>
+            </t:template>
+          </t:Column>
+        </t:columns>
+      </t:Table>
+    </VBox>
+    <VBox width="25%">
+      <HBox justifyContent="Center">
+        <HBox class="sapUiTinyMarginBegin" justifyContent="End">
+          <Input width="17.5rem" id="inputCopyFromGroupWorkCenters" placeholder="{i18n>massiveusermgmt.workCenter.placeholder}" submit="filterWorkCenters" liveChange="filterWorkCenters"/>
+        </HBox>
+      </HBox>
+      <t:Table id="tableCopyFromGroupWorkCenters" rows="{modelCopyFromGroupWorkCenters>/}" selectionMode="MultiToggle" selectionBehavior="Row" visibleRowCountMode="Interactive" rowHeight="40">
+        <t:columns>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="45%">
+            <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.name}"/>
+            <t:template>
+              <Text text="{modelCopyFromGroupWorkCenters>CERTIFICATION}" class="blackText"/>
+            </t:template>
+          </t:Column>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="55%">
+            <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.description}"/>
+            <t:template>
+              <Text text="{modelCopyFromGroupWorkCenters>DESCRIPTION}" class="blackText"/>
+            </t:template>
+          </t:Column>
+        </t:columns>
+      </t:Table>
+    </VBox>
+    <VBox width="25%">
+      <HBox justifyContent="Center">
+        <HBox justifyContent="End">
+          <Input width="17.5rem" id="inputCopyFromGroupUsersDest" placeholder="{i18n>massiveusermgmt.users.placeholderDest}" submit="filterUsersDest" liveChange="filterUsersDest"/>
+        </HBox>
+      </HBox>
+      <t:Table id="tableCopyFromGroupUsersDest" rows="{modelCopyFromGroupUsersDest>/}" selectionMode="MultiToggle" selectionBehavior="Row" visibleRowCountMode="Interactive" rowHeight="40">
+        <t:columns>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="40%">
+            <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.userId}"/>
+            <t:template>
+              <Text text="{modelCopyFromGroupUsersDest>USER_ID}" class="blackText"/>
+            </t:template>
+          </t:Column>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="60%">
+            <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.fullName}"/>
+            <t:template>
+              <Text text="{modelCopyFromGroupUsersDest>USER_NAME}" class="blackText"/>
+            </t:template>
+          </t:Column>
+        </t:columns>
+      </t:Table>
+    </VBox>
+    <VBox width="25%">
+      <HBox justifyContent="Center">
+        <HBox justifyContent="End">
+          <Input width="17.5rem" id="inputCopyFromGroupUserGroupsDest" placeholder="{i18n>massiveusermgmt.userGroups.placeholderDest}" submit="filterUserGroupsDest" liveChange="filterUserGroupsDest"/>
+        </HBox>
+      </HBox>
+      <t:Table id="tableCopyFromGroupUserGroupsDest" rows="{modelCopyFromGroupUserGroupsDest>/}" selectionMode="MultiToggle" selectionBehavior="Row" visibleRowCountMode="Interactive" rowHeight="40">
+        <t:columns>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="40%">
+            <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.name}"/>
+            <t:template>
+              <Text text="{modelCopyFromGroupUserGroupsDest>USER_GROUP}" class="blackText"/>
+            </t:template>
+          </t:Column>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="60%">
+            <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.description}"/>
+            <t:template>
+              <Text text="{modelCopyFromGroupUserGroupsDest>DESCRIPTION}" class="blackText"/>
+            </t:template>
+          </t:Column>
+        </t:columns>
+      </t:Table>
+    </VBox>
+    <VBox class="sapUiTinyMarginBegin">
+      <!--<comp:PodButton class="sapUiSmallMarginTop" icon="sap-icon://response" iconSize="3.5rem" press="onClearSelections" text="{i18n>massiveusermgmt.button.avoid}" width="110px"/>
+      <comp:PodButton class="sapUiSmallMarginTop" icon="sap-icon://save" iconSize="3.5rem" press="onSave" text="{i18n>massiveusermgmt.button.save}" width="110px"/>-->
+    </VBox>
+  </HBox>
+</mvc:View>
