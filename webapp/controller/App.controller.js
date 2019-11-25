@@ -10,7 +10,7 @@ sap.ui.define(['jquery.sap.global', 'sap/ui/model/json/JSONModel', 'sap/ui/core/
           return this.substr(position, searchString.length) === searchString;
         };
       }
-      
+    
       this.getCurrentUser();
     },
     getCurrentUser: function() {
