@@ -8,6 +8,7 @@ sap.ui.define([
     "use strict";
 
     var ByUserController = BaseController.extend("massiveusermgmt.controller.ByUser", {
+        selectedUser: "",
         onInit: function () {
             this.tableByUserWorkCenters = this.getView().byId("tableByUserWorkCenters");
             this.tableByUserUsers = this.getView().byId("tableByUserUsers");
@@ -37,7 +38,7 @@ sap.ui.define([
             //this.getUsers();
             //this.getUserGroups();
         },
-        getWorkCenters: function (inputUserId) {
+        getWorkCenters: function () {
 
             var that = this;
 
@@ -56,7 +57,7 @@ sap.ui.define([
 
             var callData = {
                 Mock: "GET_ALL_WORK_CENTERS_BY_USER_ID",
-                USER_ID: inputUserId
+                USER_ID: this.selectedUser
             };
 
             CommonCallManager.getRows(transaction, callData, success, failure);
@@ -84,7 +85,7 @@ sap.ui.define([
 
             CommonCallManager.getRows(transaction, callData, success, failure);
         },
-        getUserGroups: function (inputUserId) {
+        getUserGroups: function () {
 
             var that = this;
 
@@ -103,7 +104,7 @@ sap.ui.define([
 
             var callData = {
                 Mock: "GET_ALL_USER_GROUPS_BY_USER_ID",
-                USER_ID: inputUserId
+                USER_ID: this.selectedUser
             };
 
             CommonCallManager.getRows(transaction, callData, success, failure);
@@ -126,7 +127,12 @@ sap.ui.define([
             that.selectedUserGroups.length = 0;
 
             for (var g in that.modelByUserUserGroups.getProperty("/")) {
-                if (that.modelByUserUserGroups.getProperty("/")[g].SELECTED) that.selectedUserGroups.push(that.modelByUserUserGroups.getProperty("/")[g].USER_GROUP_BO);
+                if (that.modelByUserUserGroups.getProperty("/")[g].SELECTED || that.modelByUserUserGroups.getProperty("/")[g].PRE_SELECTED)
+                  that.selectedUserGroups.push({
+                    "SELECTED" : that.modelByUserUserGroups.getProperty("/")[g].SELECTED,
+                    "PRE_SELECTED" : that.modelByUserUserGroups.getProperty("/")[g].PRE_SELECTED,
+                    "UserGroupBO" : that.modelByUserUserGroups.getProperty("/")[g].USER_GROUP_BO
+                  });
             }
 
             if (!that.selectedWorkCenters.length) {
@@ -144,9 +150,12 @@ sap.ui.define([
         createWorkCenter: function() {
             var that = this;
 
-            var workCentersXML = '<workCenters><WorkCenterBO>' + that.selectedWorkCenters.map(function(c){return c;}).join("</WorkCenterBO><WorkCenterBO>") + '</WorkCenterBO></workCenters>';
+            //var workCentersXML = '<workCenters><WorkCenterBO>' + that.selectedWorkCenters.map(function(c){return c;}).join("</WorkCenterBO><WorkCenterBO>") + '</WorkCenterBO></workCenters>';
+            //PERCHè IL MAP??
+            var workCentersXML = '<workCenters><WorkCenterBO>' + that.selectedWorkCenters.join("</WorkCenterBO><WorkCenterBO>") + '</WorkCenterBO></workCenters>';
+
             //var usersXML = '<users><UserBO>' + that.selectedUsers.map(function(c){return c;}).join("</UserBO><UserBO>") + '</UserBO></users>';
-            var userGroupsXML = '<userGroups><UserGroupBO>' + that.selectedUserGroups.map(function(c){return c;}).join("</UserGroupBO><UserGroupBO>") + '</UserGroupBO></userGroups>';
+            //var userGroupsXML = '<userGroups><UserGroupBO>' + that.selectedUserGroups.map(function(c){return c;}).join("</UserGroupBO><UserGroupBO>") + '</UserGroupBO></userGroups>';
 
             var transaction = "ES/TRANSACTIONS/MASSIVEUSERMANAGEMENT/ASSIGN_WC_AND_USERGROUP";
 
@@ -162,9 +171,10 @@ sap.ui.define([
 
             var callData = {
                 MOCK: "createWorkCenterMessage",
-                USER_GROUPS_XML: workCentersXML,
-                USERID: usersXML,
-                WORK_CENTERS_XML: userGroupsXML
+                //USER_GROUPS_XML: workCentersXML,
+                USER_GROUPS_JSON: JSON.stringify(that.selectedUserGroups),
+                USERID: "POLONIAS",
+                WORK_CENTERS_XML: workCentersXML
             };
 
             CommonCallManager.getRows(transaction, callData, success, failure);
@@ -220,7 +230,15 @@ sap.ui.define([
 
         },
         onSelectUser: function(oEvent) {
-          this.getWorkCenters(this.modelByUserUsers.getProperty(oEvent.getParameter("rowContext").sPath).USERNAME);
+          if (this.tableByUserUsers.getSelectedIndex() > -1) {
+            this.selectedUser = this.modelByUserUsers.getProperty(oEvent.getParameter("rowContext").sPath).USERNAME;
+            this.getWorkCenters();
+            this.getUserGroups();
+          } else {
+            this.selectedUser = "";
+            this.getWorkCenters();
+            this.getUserGroups();
+          }
         }
     });
 
