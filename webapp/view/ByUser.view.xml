@@ -28,7 +28,7 @@
           </t:Column>
         </t:columns>
       </t:Table>
-      <t:Table class="sapUiSmallMargin" id="tableByUserWorkCenters" rows="{modelByUserWorkCenters>/}" selectionMode="MultiToggle" selectionBehavior="RowOnly" visibleRowCount="10" rowHeight="50px">
+      <t:Table class="sapUiSmallMargin" id="tableByUserWorkCenters" rows="{modelByUserWorkCenters>/}" selectionMode="None" selectionBehavior="RowOnly" visibleRowCount="10" rowHeight="50px">
         <t:toolbar>
           <Toolbar>
           <Input width="15vw"  id="inputByUserWorkCenters" placeholder="{i18n>massiveusermgmt.workCenter.placeholder}" submit="filterWorkCenters" liveChange="filterWorkCenters"/>

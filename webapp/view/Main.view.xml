@@ -17,7 +17,7 @@
       <Image id="DLLogo" class="DLLogo" src="images/Delonghi.png" densityAware="false" height="75%"/>
     </headerContent>
     <content>
-      <IconTabBar select="onClearSelections">
+      <IconTabBar select="onClearSelections" expandable="false">
         <items>
           <IconTabFilter key="ByUser" icon="sap-icon://employee" text="{i18n>massiveusermgmt.button.byUser}">
             <mvc:XMLView viewName="massiveusermgmt.view.ByUser" height="100%"/>
@@ -28,8 +28,8 @@
           <IconTabFilter visible="false" key="COPY_USER" icon="sap-icon://map" text="{i18n>massiveusermgmt.button.byWorkCenter}">
             <mvc:XMLView viewName="massiveusermgmt.view.CopyFromUser"/>
           </IconTabFilter>
-          <IconTabFilter key="COPY_GROUP" icon="sap-icon://copy" text="{i18n>massiveusermgmt.button.copyFromGroup}">
-            <mvc:XMLView viewName="massiveusermgmt.view.CopyFromGroup"/>
+          <IconTabFilter key="copyUser" icon="sap-icon://copy" text="{i18n>massiveusermgmt.button.copyFromUser}">
+            <mvc:XMLView viewName="massiveusermgmt.view.CopyFromUser"/>
           </IconTabFilter>
         </items>
       </IconTabBar>
