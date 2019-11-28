@@ -110,6 +110,11 @@ sap.ui.define([
             CommonCallManager.getRows(transaction, callData, success, failure);
         },
         onSave: function() {
+            if (this.selectedUser == "") {
+                return MessageBox.warning(this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.noUserSelected.text"), {
+                    title: this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.noUserSelected.title")
+                });
+            }
             var that = this;
 
             that.selectedWorkCenters.length = 0;
@@ -118,7 +123,7 @@ sap.ui.define([
                 if (that.modelByUserWorkCenters.getProperty("/")[c].SELECTED) that.selectedWorkCenters.push(that.modelByUserWorkCenters.getProperty("/")[c].WORK_CENTER_BO);
             }
 
-            that.selectedUsers.length = 0;
+            //that.selectedUsers.length = 0;
 
             /*for (var u in that.modelByUserUsers.getProperty("/")) {
                 if (that.modelByUserUsers.getProperty("/")[u].SELECTED) that.selectedUsers.push(that.modelByUserUsers.getProperty("/")[u].HANDLE);
@@ -135,17 +140,20 @@ sap.ui.define([
                   });
             }
 
+            that.createWorkCenter();
+
+            /*
             if (!that.selectedWorkCenters.length) {
                 MessageBox.warning(this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.noCertSelected"), {
                     title: this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.warning")
                 });
-            } else if (/*!that.selectedUsers.length && */ !that.selectedUserGroups.length) {
+            } else if (!that.selectedUsers.length && !that.selectedUserGroups.length) {
                 MessageBox.warning(this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.noDestSelected"), {
                     title: this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.warning")
                 });
             } else {
                 that.createWorkCenter();
-            }
+            } */
         },
         createWorkCenter: function() {
             var that = this;
@@ -173,7 +181,7 @@ sap.ui.define([
                 MOCK: "createWorkCenterMessage",
                 //USER_GROUPS_XML: workCentersXML,
                 USER_GROUPS_JSON: JSON.stringify(that.selectedUserGroups),
-                USERID: "POLONIAS",
+                USERID: that.selectedUser,
                 WORK_CENTERS_XML: workCentersXML
             };
 
@@ -239,6 +247,33 @@ sap.ui.define([
             this.getWorkCenters();
             this.getUserGroups();
           }
+        },
+        resetWorkCenters: function() {
+          var aWC = this.modelByUserWorkCenters.getProperty("/");
+          aWC.map(function(c){c.SELECTED = false; return c;});
+          this.modelByUserWorkCenters.setProperty("/", aWC);
+        },
+        resetUserGroups: function() {
+          var aUG = this.modelByUserUserGroups.getProperty("/");
+          aUG.map(function(c){c.SELECTED = false; return c});
+          this.modelByUserUserGroups.setProperty("/", aUG);
+        },
+        resetUsers: function() {
+          var sValue = "";
+
+          var oFilterUsers = new sap.ui.model.Filter([
+              new sap.ui.model.Filter("USERNAME", sap.ui.model.FilterOperator.Contains, sValue),
+              new sap.ui.model.Filter("FIRSTNAME", sap.ui.model.FilterOperator.Contains, sValue),
+              new sap.ui.model.Filter("LASTNAME", sap.ui.model.FilterOperator.Contains, sValue),
+              new sap.ui.model.Filter("BADGE", sap.ui.model.FilterOperator.Contains, sValue)
+          ]);
+
+          this.tableByUserUsers.getBinding("rows").filter(oFilterUsers);
+
+          this.selectedUser = "";
+          this.tableByUserUsers.clearSelection();
+          this.onClearSelections();
+
         }
     });
 

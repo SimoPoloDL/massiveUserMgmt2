@@ -73,7 +73,7 @@
         </t:columns>
       </t:Table>
       <VBox justifyContent="Center" class="sapUiTinyMarginBegin">
-        <Button class="sapUiSmallMargin" icon="sap-icon://response" press="onClearSelections" text="{i18n>massiveusermgmt.button.avoid}" type="Reject" width="10rem"/>
+        <Button class="sapUiSmallMargin" icon="sap-icon://response" press="resetUsers" text="{i18n>massiveusermgmt.button.avoid}" type="Reject" width="10rem"/>
         <Button class="sapUiSmallMargin" icon="sap-icon://save" press="onSave" text="{i18n>massiveusermgmt.button.save}" type="Accept" width="10rem"/>
       </VBox>
   </HBox>
