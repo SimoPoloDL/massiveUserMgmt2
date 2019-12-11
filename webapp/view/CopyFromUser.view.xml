@@ -4,20 +4,22 @@
       <HBox justifyContent="Center">
         <HBox justifyContent="End">
           <Input width="17.5rem" id="inputCopyFromUserUsersSrc" placeholder="{i18n>massiveusermgmt.users.placeholderSrc}" submit="filterUsersSrc" liveChange="filterUsersSrc"/>
+          <ToolbarSpacer/>
+          <Button width="5vw" icon="sap-icon://response"  text="Reset" type="Reject" press="resetUsersSrc"/>
         </HBox>
       </HBox>
-      <t:Table id="tableCopyFromUserUsersSrc" rows="{modelCopyFromUserUsersSrc>/}" selectionMode="Single" selectionBehavior="RowOnly" rowSelectionChange="getUserWorkCenters" visibleRowCountMode="Interactive" rowHeight="40">
+      <t:Table id="tableCopyFromUserUsersSrc" rows="{modelCopyFromUserUsersSrc>/}" selectionMode="Single" selectionBehavior="RowOnly" rowSelectionChange="getUserWorkCenters" visibleRowCount="10"  rowHeight="48">
         <t:columns>
           <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="40%">
             <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.userId}"/>
             <t:template>
-              <Text text="{modelCopyFromUserUsersSrc>USER_ID}" class="blackText"/>
+              <ObjectIdentifier title="{modelCopyFromUserUsersSrc>USERNAME}" text="{modelCopyFromUserUsersSrc>BADGE}" class="mezzoRemDiPaddingASinistra" />
             </t:template>
           </t:Column>
           <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="60%">
             <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.fullName}"/>
             <t:template>
-              <Text text="{modelCopyFromUserUsersSrc>USER_NAME}" class="blackText"/>
+              <Text text="{modelCopyFromUserUsersSrc>LASTNAME}, {modelCopyFromUserUsersSrc>FIRSTNAME}" class="mezzoRemDiPaddingASinistra"/>
             </t:template>
           </t:Column>
         </t:columns>
@@ -27,25 +29,46 @@
       <HBox justifyContent="Center">
         <HBox class="sapUiTinyMarginBegin" justifyContent="End">
           <Input width="17.5rem" id="inputCopyFromUserWorkCenters" placeholder="{i18n>massiveusermgmt.workCenter.placeholder}" submit="filterWorkCenters" liveChange="filterWorkCenters"/>
+          <ToolbarSpacer/>
+          <Button width="5vw" icon="sap-icon://response" text="Reset" type="Reject" press="resetWorkCentersSrc"/>
         </HBox>
       </HBox>
-      <t:Table id="tableCopyFromUserWorkCenters" rows="{modelCopyFromUserWorkCenters>/}" selectionMode="None" visibleRowCountMode="Interactive" rowHeight="40">
+      <t:Table id="tableCopyFromUserWorkCenters" rows="{modelCopyFromUserWorkCenters>/}" selectionMode="None" visibleRowCount="10"  rowHeight="48">
         <t:columns>
           <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="5%">
             <t:template>
-              <CheckBox selected="{modelCopyFromUserWorkCenters>SELECTED}" class="blackText"/>
+              <CheckBox selected="{modelCopyFromUserWorkCenters>SELECTED}" class="blackText" editable="false"/>
             </t:template>
           </t:Column>
-          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="40%">
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="55%">
             <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.name}"/>
             <t:template>
-              <Text text="{modelCopyFromUserWorkCenters>CERTIFICATION}" class="blackText"/>
+              <ObjectIdentifier title="{modelCopyFromUserWorkCenters>WORK_CENTER}" text="{modelCopyFromUserWorkCenters>DESCRIPTION}" class="mezzoRemDiPaddingASinistra"/>
+            </t:template>
+          </t:Column>
+        </t:columns>
+      </t:Table> 
+    </VBox>
+
+    <VBox width="25%">
+      <HBox justifyContent="Center">
+        <HBox justifyContent="End">
+          <Input width="17.5rem" id="inputCopyFromUserUserGroupsDest" placeholder="{i18n>massiveusermgmt.userGroups.placeholderDest}" submit="filterUserGroupsDest" liveChange="filterUserGroupsDest"/>
+          <ToolbarSpacer/>
+          <Button width="5vw" icon="sap-icon://response" text="Reset" type="Reject" press="resetUserGroupsSrc"/>
+        </HBox>
+      </HBox>
+      <t:Table id="tableCopyFromUserUserGroupsDest" rows="{modelCopyFromUserUserGroupsDest>/}" selectionMode="None" visibleRowCount="10"  rowHeight="48">
+        <t:columns>
+          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="5%">
+            <t:template>
+              <CheckBox selected="{modelCopyFromUserUserGroupsDest>SELECTED}" class="blackText" editable="false"/>
             </t:template>
           </t:Column>
           <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="55%">
             <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.description}"/>
             <t:template>
-              <Text text="{modelCopyFromUserWorkCenters>DESCRIPTION}" class="blackText"/>
+              <ObjectIdentifier title="{modelCopyFromUserUserGroupsDest>USER_GROUP}" text="{modelByUserUserGroups>DESCRIPTION}" class="mezzoRemDiPaddingASinistra"/>
             </t:template>
           </t:Column>
         </t:columns>
@@ -55,9 +78,11 @@
       <HBox justifyContent="Center">
         <HBox justifyContent="End">
           <Input width="17.5rem" id="inputCopyFromUserUsersDest" placeholder="{i18n>massiveusermgmt.users.placeholderDest}" submit="filterUsersDest" liveChange="filterUsersDest"/>
+          <ToolbarSpacer/>
+          <Button width="5vw" icon="sap-icon://response"  text="Reset" type="Reject" press="resetUsersDest"/>
         </HBox>
       </HBox>
-      <t:Table id="tableCopyFromUserUsersDest" rows="{modelCopyFromUserUsersDest>/}" selectionMode="None" visibleRowCountMode="Interactive" rowHeight="40">
+      <t:Table id="tableCopyFromUserUsersDest" rows="{modelCopyFromUserUsersDest>/}" selectionMode="None" visibleRowCount="10"  rowHeight="48">
         <t:columns>
           <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="5%">
             <t:template>
@@ -67,41 +92,13 @@
           <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="40%">
             <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.userId}"/>
             <t:template>
-              <Text text="{modelCopyFromUserUsersDest>USER_ID}" class="blackText"/>
+              <ObjectIdentifier title="{modelCopyFromUserUsersDest>USERNAME}" text="{modelCopyFromUserUsersDest>BADGE}" class="mezzoRemDiPaddingASinistra" />
             </t:template>
           </t:Column>
           <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="55%">
             <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.fullName}"/>
             <t:template>
-              <Text text="{modelCopyFromUserUsersDest>USER_NAME}" class="blackText"/>
-            </t:template>
-          </t:Column>
-        </t:columns>
-      </t:Table>
-    </VBox>
-    <VBox width="25%">
-      <HBox justifyContent="Center">
-        <HBox justifyContent="End">
-          <Input width="17.5rem" id="inputCopyFromUserUserGroupsDest" placeholder="{i18n>massiveusermgmt.userGroups.placeholderDest}" submit="filterUserGroupsDest" liveChange="filterUserGroupsDest"/>
-        </HBox>
-      </HBox>
-      <t:Table id="tableCopyFromUserUserGroupsDest" rows="{modelCopyFromUserUserGroupsDest>/}" selectionMode="None" visibleRowCountMode="Interactive" rowHeight="40">
-        <t:columns>
-          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="5%">
-            <t:template>
-              <CheckBox selected="{modelCopyFromUserUserGroupsDest>SELECTED}" class="blackText"/>
-            </t:template>
-          </t:Column>
-          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="40%">
-            <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.name}"/>
-            <t:template>
-              <Text text="{modelCopyFromUserUserGroupsDest>USER_GROUP}" class="blackText"/>
-            </t:template>
-          </t:Column>
-          <t:Column demandPopin="true" minScreenWidth="t:Tablet" vAlign="Middle" width="55%">
-            <Text class="headerText sapUiTinyMarginBegin sapUiTinyMarginTop sapUiSmallMarginBottom" text="{i18n>massiveusermgmt.column.description}"/>
-            <t:template>
-              <Text text="{modelCopyFromUserUserGroupsDest>DESCRIPTION}" class="blackText"/>
+              <Text text="{modelCopyFromUserUsersDest>LASTNAME}, {modelCopyFromUserUsersDest>FIRSTNAME}" class="mezzoRemDiPaddingASinistra"/>
             </t:template>
           </t:Column>
         </t:columns>
@@ -112,4 +109,8 @@
       <comp:PodButton class="sapUiSmallMarginTop" icon="sap-icon://save" iconSize="3.5rem" press="onSave" text="{i18n>massiveusermgmt.button.save}" width="110px"/>-->
     </VBox>
   </HBox>
+    <HBox justifyContent="Center">
+      <Button class="sapUiSmallMargin" icon="sap-icon://response" press="resetUsersCopy" text="{i18n>massiveusermgmt.button.avoid}" type="Reject" width="10rem"/>
+      <Button class="sapUiSmallMargin" icon="sap-icon://save" press="onSaveCopy" text="{i18n>massiveusermgmt.button.save}" type="Accept" width="10rem"/>
+    </HBox>
 </mvc:View>
