@@ -73,6 +73,20 @@
         </t:columns>
       </t:Table>
       <VBox justifyContent="Center" class="sapUiTinyMarginBegin">
+        <Button id="resetBadge" class="sapUiSmallMargin" icon="sap-icon://reset" press="resetBadgeUsers" text="{i18n>massiveusermgmt.button.resetBadge}" enabled="false" type="Ghost" width="10rem"/>
+        <Button id="changeBadge" class="sapUiSmallMargin" icon="sap-icon://switch-classes" press="changeBadgeUsers" text="{i18n>massiveusermgmt.button.changeBadge}" enabled="false" type="Ghost" width="10rem">
+          <customData>
+					<core:CustomData
+						key="multi"
+						value="true" />
+					<core:CustomData
+						key="showClearButton"
+						value="true" />
+					<core:CustomData
+						key="confirmButtonText"
+						value="Aggiungi" />
+				  </customData>
+        </Button>
         <Button class="sapUiSmallMargin" icon="sap-icon://response" press="resetUsers" text="{i18n>massiveusermgmt.button.avoid}" type="Reject" width="10rem"/>
         <Button class="sapUiSmallMargin" icon="sap-icon://save" press="onSave" text="{i18n>massiveusermgmt.button.save}" type="Accept" width="10rem"/>
       </VBox>

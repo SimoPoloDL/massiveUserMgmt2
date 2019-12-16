@@ -2,13 +2,17 @@ sap.ui.define([
     'jquery.sap.global',
     'sap/ui/model/json/JSONModel',
     'sap/m/MessageBox',
+    'sap/m/MessageToast',
+    	'sap/m/Dialog',
     './BaseController',
     '../model/CommonManager'
-], function (jQuery, JSONModel, MessageBox, BaseController, CommonCallManager) {
+], function (jQuery, JSONModel, MessageBox, MessageToast, Dialog, BaseController, CommonCallManager) {
     "use strict";
-
+var selectedBadge ="";
+var selectedNewBadge ="";
     var ByUserController = BaseController.extend("massiveusermgmt.controller.ByUser", {
         selectedUser: "",
+
         onInit: function () {
             this.tableByUserWorkCenters = this.getView().byId("tableByUserWorkCenters");
             this.tableByUserUsers = this.getView().byId("tableByUserUsers");
@@ -29,6 +33,9 @@ sap.ui.define([
             this.selectedWorkCenters = [];
             this.selectedUsers = [];
             this.selectedUserGroups = [];
+
+            this.resetBadge = this.getView().byId("resetBadge");
+            this.changeBadge = this.getView().byId("changeBadge");
 
             //this.getView().setModel(this.getInfoModel(), "infoModel");
         },
@@ -109,6 +116,118 @@ sap.ui.define([
 
             CommonCallManager.getRows(transaction, callData, success, failure);
         },
+
+        resetBadgeUsers: function () {
+          var that = this;
+
+          var params = {
+             BADGE: selectedBadge,
+             "TRANSACTION": "ES/TRANSACTIONS/MASSIVEUSERMANAGEMENT/CLEAN_USER",
+             "OutputParameter": "*"
+          };
+
+          $.ajax({
+             type: 'GET',
+             async: true,
+             data: params,
+             url: "/XMII/Runner",
+             dataType: 'xml',
+             success: function(result) {
+
+                try {
+                  // that._busyDialog.close();
+                   if (jQuery(result).find("RC").text() === "0") {
+                      MessageToast.show(jQuery(result).find("MESSAGE").text());
+                   } else {
+                      MessageBox.show(jQuery(result).find("MESSAGE").text());
+                   }
+                } catch (err) {
+                }
+             },
+             error: function(error) {
+             }
+          });
+       },
+
+
+
+
+
+       changeBadgeUsers: function () {
+         var that = this;
+         //var OLDBADGE = this.modelByUserUsers.getProperty(oEvent.getParameter("rowContext").sPath).BADGE;
+         var oLabel = new sap.m.Label  ({ text: "", width:"10vw"});
+         var oLabel2 = new sap.m.Label  ({ text: "", width:"10vw"});
+         var oLabel6 = new sap.m.Label  ({ text: "", width:"30vw"});
+         var oLabel3 = new sap.m.Label  ({ text: "", width:"4vw"});
+         var oLabel5 = new sap.m.Label  ({ text: "", width:"2vw"});
+         var oLabel6 = new sap.m.Label  ({ text: "", width:"30vw"});
+         var oLabel7 = new sap.m.Label  ({ text: "", width:"30vw"});
+         var oText = new sap.m.Input  ({
+           text: "d",
+           width:"10vw"
+         });
+
+         var dialog = new Dialog({
+ 					title: 'Inserire nuovo Badge',
+ 					content: [oLabel6, oLabel, oText, oLabel2, oLabel7, oLabel3,oLabel5],
+ 					contentWidth: '30vw',
+ 					contentHeight: '7vw',
+
+ 				beginButton: new sap.m.Button({
+ 					type: 'Emphasized',
+ 					text: 'Sostituisci',
+ 					press: function () {
+            var that = this;
+            selectedNewBadge = oText.getValue();
+            var params = {
+               OLDBADGE: selectedBadge,
+               NEWBADGE: selectedNewBadge,
+               "TRANSACTION": "ES/TRANSACTIONS/MASSIVEUSERMANAGEMENT/CHANGE_USER_BADGE",
+               "OutputParameter": "*"
+            };
+
+            $.ajax({
+               type: 'GET',
+               async: true,
+               data: params,
+               url: "/XMII/Runner",
+               dataType: 'xml',
+               success: function(result) {
+
+                  try {
+                    // that._busyDialog.close();
+                     if (jQuery(result).find("RC").text() === "0") {
+                        MessageToast.show(jQuery(result).find("MESSAGE").text());
+                     } else {
+                        MessageBox.show(jQuery(result).find("MESSAGE").text());
+                     }
+                  } catch (err) {
+                  }
+               },
+               error: function(error) {
+               }
+            });
+
+ 						dialog.close();
+ 					}
+ 				}),
+ 				endButton: new sap.m.Button({
+ 					text: 'Cancel',
+ 					press: function () {
+
+ 						dialog.close();
+ 					}
+ 				}),
+ 				afterClose: function() {
+          that.resetUsers();
+ 					dialog.destroy();
+ 				}
+ 			});
+      dialog.open();
+      },
+
+
         onSave: function() {
             if (this.selectedUser == "") {
                 return MessageBox.warning(this.getView().getModel("i18n").getResourceBundle().getText("massiveusermgmt.warning.noUserSelected.text"), {
@@ -240,13 +359,19 @@ sap.ui.define([
         onSelectUser: function(oEvent) {
           if (this.tableByUserUsers.getSelectedIndex() > -1) {
             this.selectedUser = this.modelByUserUsers.getProperty(oEvent.getParameter("rowContext").sPath).USERNAME;
+            selectedBadge = this.modelByUserUsers.getProperty(oEvent.getParameter("rowContext").sPath).BADGE;
             this.getWorkCenters();
             this.getUserGroups();
+            this.resetBadge.setEnabled(true);
+            this.changeBadge.setEnabled(true);
           } else {
             this.selectedUser = "";
             this.getWorkCenters();
             this.getUserGroups();
+            this.resetBadge.setEnabled(false);
+            this.changeBadge.setEnabled(false);
           }
+
         },
         resetWorkCenters: function() {
           var aWC = this.modelByUserWorkCenters.getProperty("/");
